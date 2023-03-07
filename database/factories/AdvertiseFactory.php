@@ -24,14 +24,14 @@ class AdvertiseFactory extends Factory
         $category = Category::factory()->create()->pluck('id');
 
         return [
-            'user_id' => fake()->randomElement($user),
-            'state_id' => fake()->randomElement($state),
-            'category_id' => fake()->randomElement($category),
-            'title' => fake()->sentence(),
-            'price' => random_int(50, 10000),
+            'user_id'       => fake()->randomElement($user),
+            'state_id'      => fake()->randomElement($state),
+            'category_id'   => fake()->randomElement($category),
+            'title'         => fake()->sentence(),
+            'price'         => random_int(50, 10000),
             'is_negotiable' => fake()->boolean(),
-            'description' => fake()->text(),
-            'views' => random_int(1, 500),
+            'description'   => fake()->text(),
+            'views'         => random_int(1, 500),
         ];
     }
 }

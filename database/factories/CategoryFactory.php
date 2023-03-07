@@ -25,8 +25,8 @@ class CategoryFactory extends Factory
         ];
 
         return [
-            'name' => fake()->randomElement($a),
-            'slug' => fake()->slug(),
+            'name'  => fake()->randomElement($a),
+            'slug'  => fake()->slug(),
             'image' => fake()->imageUrl(),
         ];
     }
