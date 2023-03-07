@@ -22,12 +22,12 @@ class UserFactory extends Factory
         $state = State::factory()->create()->pluck('id');
 
         return [
-            'state_id' => fake()->randomElement($state),
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'state_id'          => fake()->randomElement($state),
+            'name'              => fake()->name(),
+            'email'             => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => Hash::make('12345'),
-            'remember_token' => Str::random(10),
+            'password'          => Hash::make('12345'),
+            'remember_token'    => Str::random(10),
         ];
     }
 
