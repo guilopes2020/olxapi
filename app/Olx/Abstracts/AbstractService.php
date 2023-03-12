@@ -2,12 +2,22 @@
 
 namespace App\Olx\Abstracts;
 
-use App\OLX\Interfaces\ServiceInterface;
+use Illuminate\Support\Facades\Auth;
+use App\Olx\Interfaces\ServiceInterface;
 
 abstract class AbstractService implements ServiceInterface
 {
-    protected $with = [];
     protected $repository;
+
+    /**
+     * Get Repository
+     *
+     * @return mixed
+     */
+    public function getRepository()
+    {
+        return $this->repository;
+    }
 
     /**
      * Get All Services
@@ -17,6 +27,7 @@ abstract class AbstractService implements ServiceInterface
      */
     public function getAll(array $params = [], $with = [])
     {
+
         return $this->repository->all($params, $with);
     }
 
@@ -120,6 +131,12 @@ abstract class AbstractService implements ServiceInterface
         return $id;
     }
 
+    /**
+     * Delete
+     *
+     * @param $id
+     * @return void
+     */
     public function delete($id)
     {
         $this->validateOnDelete($id);
@@ -129,6 +146,16 @@ abstract class AbstractService implements ServiceInterface
 
         return $id;
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function afterDelete($id)
+    {
+        return $id;
+    }
+    
 
     public function toSelect(bool $withGenerateSelectOption = true)
     {
@@ -168,11 +195,27 @@ abstract class AbstractService implements ServiceInterface
     }
 
     /**
-     * @param $id
+     * Create
+     * Simplres criação sem validações.
+     * @param array $data
      * @return mixed
      */
-    public function afterDelete($id)
+    public function create(array $data)
     {
-        return $id;
+        $entity = $this->repository->create($data);
+        $this->afterSave($entity, $data);
+
+        return $entity;
     }
+
+    /**
+     * Get User Auth
+     *
+     * @return mixed
+     */
+    public function getUserAuth()
+    {
+        return Auth::user();
+    }
+
 }
