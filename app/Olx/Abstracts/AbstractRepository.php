@@ -56,6 +56,7 @@ abstract class AbstractRepository implements RepositoryInterface
      */
     public function find(int $id, array $with = [], array $withCount = [])
     {
+        
         return $this->getModel()->with($with)->withCount($withCount)->find($id);
     }
 
@@ -77,7 +78,7 @@ abstract class AbstractRepository implements RepositoryInterface
      * @param $id
      * @return mixed
      */
-    public function findOrFail($id)
+    public function findOrFail(int $id)
     {
         return $this->getModel()->findOrFail($id);
     }
@@ -117,6 +118,7 @@ abstract class AbstractRepository implements RepositoryInterface
      */
     public function update(Model $entity, $data)
     {
+
         return $entity->fill($data)->save();
     }
 
@@ -142,6 +144,7 @@ abstract class AbstractRepository implements RepositoryInterface
     public function delete(int $id)
     {
         $model = $this->find($id);
+        
         return $model->delete();
     }
 
