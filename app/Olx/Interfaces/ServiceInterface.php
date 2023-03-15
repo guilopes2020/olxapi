@@ -8,7 +8,7 @@ interface ServiceInterface
 
     public function getAll();
 
-    public function find(int $id);
+    public function find(int $id, array $with, array $withCount);
 
     public function beforeSave(array $data);
 
