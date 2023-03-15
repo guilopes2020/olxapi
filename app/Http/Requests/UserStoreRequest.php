@@ -38,6 +38,7 @@ class UserStoreRequest extends FormRequest
             'email.required'    => 'o campo email é obrigatorio',
             'email.string'      => 'o campo email tem que ser do tipo string',
             'email.email'       => 'o campo email tem que ser do tipo email',
+            'email.unique'      => 'este email já esta em uso, escolha outro',
             'password.required' => 'o campo password é obrigatorio',
             'password.string'   => 'o campo password tem que ser do tipo string',
             'state_id.required' => 'o campo state_id é obrigatorio',
