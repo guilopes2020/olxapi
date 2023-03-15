@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('state_id')->constrained();
             $table->foreignId('category_id')->constrained();
-            $table->string('title', 250);
+            $table->string('title', 255);
             $table->float('price');
-            $table->text('description', 250)->nullable();
+            $table->text('description', 255)->nullable();
             $table->boolean('is_negotiable');
             $table->integer('views');
 

@@ -45,10 +45,10 @@ class UserFeatureTest extends TestCase
      */
     public function test_index_user()
     {
-        $this->post('/api/users', $this->user->toArray());
+        $this->post('/api/users', $this->data->toArray());
 
         $this->get('/api/users')->assertStatus(200);
-        $this->get('/api/users')->assertSee($this->user->name);
+        $this->get('/api/users')->assertSee($this->data->name);
     }
 
     /**
@@ -58,9 +58,9 @@ class UserFeatureTest extends TestCase
      */
     public function test_store_user()
     {
-        $this->post('/api/users', $this->user->toArray())->assertStatus(200);
+        $this->post('/api/users', $this->data->toArray());
         
-        $this->assertDatabaseHas('users', ['name' => $this->user->name]);
+        $this->assertDatabaseHas('users', $this->data->toArray());
     }
 
     /**

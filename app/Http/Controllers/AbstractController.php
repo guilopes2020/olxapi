@@ -61,14 +61,14 @@ class AbstractController extends Controller
         }
     }
 
-    public function show(Request $request, $id)
+    public function show($id, Request $request)
     {
         if (! isset($request->with)) {
             $request->with = $this->with;
         }
 
         try {
-            return $this->ok($this->service->find($request->with, $id));
+            return $this->ok($this->service->find($id, $request->with));
         } catch (\Exception | ValidationException $e) {
             DB::rollBack();
             if ($e instanceof \Exception) {
