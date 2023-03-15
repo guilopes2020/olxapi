@@ -12,7 +12,6 @@ use App\Olx\Users\Services\UserService;
 use App\Olx\Users\Repositories\UserRepository;
 
 
-
 class UsersUnitTest extends TestCase
 {
     protected $service;

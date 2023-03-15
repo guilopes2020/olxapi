@@ -80,7 +80,7 @@ class AbstractController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
         try {
             if ($this->requestValidateUpdate) {
@@ -93,7 +93,7 @@ class AbstractController extends Controller
 
         try {
             DB::beginTransaction();
-            $response = $this->service->update($request->all(), $id);
+            $response = $this->service->update($id, $request->all());
             DB::commit();
             return $this->success($this->messageSuccessDefault, ['response' => $response]);
         } catch (\Exception | ValidationException $e) {
