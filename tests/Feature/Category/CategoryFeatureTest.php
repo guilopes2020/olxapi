@@ -3,6 +3,7 @@
 namespace Tests\Feature\Category;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -12,6 +13,7 @@ class CategoryFeatureTest extends TestCase
 
     protected $data;
     protected $category;
+    protected $user;
 
     /**
      * SetUp
@@ -22,6 +24,7 @@ class CategoryFeatureTest extends TestCase
     {
         parent::setUp();
 
+        $this->user = User::factory()->create();
         $this->data = Category::factory()->create();
 
         $a = [
@@ -45,6 +48,8 @@ class CategoryFeatureTest extends TestCase
      */
     public function test_index_category()
     {
+        $this->actingAs($this->user);
+
         $this->post('/api/categories', $this->category->toArray());
 
         $this->get('/api/categories')->assertSee($this->category->name);
@@ -57,6 +62,8 @@ class CategoryFeatureTest extends TestCase
      */
     public function test_store_category()
     {
+        $this->actingAs($this->user);
+
         $this->post('/api/categories', $this->category->toArray())->assertStatus(200);
 
         $this->assertDatabaseHas('categories', ['slug' => $this->category->slug]);
@@ -69,6 +76,8 @@ class CategoryFeatureTest extends TestCase
      */
     public function test_show_category()
     {
+        $this->actingAs($this->user);
+
         $this->post('/api/categories', $this->data->toArray());
 
         $id = $this->data->id;
@@ -85,6 +94,8 @@ class CategoryFeatureTest extends TestCase
      */
     public function test_update_category()
     {
+        $this->actingAs($this->user);
+
         $category = $this->data;
 
         $updated = ['slug' => 'slug updated', 'image' => 'image updated'];
@@ -103,6 +114,8 @@ class CategoryFeatureTest extends TestCase
      */
     public function test_delete_category()
     {
+        $this->actingAs($this->user);
+
         $this->post('/api/categories', $this->data->toArray());
 
         $this->delete('/api/categories/'.$this->data->id)->assertStatus(200);

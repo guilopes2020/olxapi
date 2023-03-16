@@ -14,7 +14,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    protected $messageSuccessDefault = 'Operação realizada com sucesso';
+    protected $messageSuccessDefault = 'Operacao realizada com sucesso';
     protected $messageErrorDefault = 'Ops';
     public const TYPE_SUCCESS = 'success';
     public const TYPE_ERROR = 'error';
@@ -79,7 +79,7 @@ class Controller extends BaseController
         return response()->json($data, $status);
     }
 
-    public function getUserSuth()
+    public function getUserAuth()
     {
         return Auth::user();
     }
@@ -87,7 +87,7 @@ class Controller extends BaseController
     public function hasPermissionTo($permission)
     {
         if (!Auth::user()->hasPermissionTo($permission)) {
-            throw new UnauthorizedException(403, 'Voce nao tem permissao suficiente para realizar essa ação');
+            throw new UnauthorizedException(403, 'Voce nao tem permissao suficiente para realizar essa acao');
         }
     }
 }

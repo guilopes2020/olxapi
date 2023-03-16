@@ -30,9 +30,9 @@ class StateStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'o campo name é obrigatorio',
+            'name.required' => 'o campo name e obrigatorio',
             'name.string'   => 'o campo name tem que ser do tipo string',
-            'slug.required' => 'o campo slug é obrigatorio',
+            'slug.required' => 'o campo slug e obrigatorio',
             'slug.string'   => 'o campo slug tem que ser do tipo string',
         ];
     }
