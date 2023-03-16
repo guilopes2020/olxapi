@@ -51,6 +51,8 @@ class AdvertiseFeatureTest extends TestCase
      */
     public function test_index_advertise()
     {
+        $this->actingAs($this->user);
+
         $this->post('/api/advertises', $this->advertise->toArray());
 
         $this->get('/api/advertises')->assertStatus(200);
@@ -64,6 +66,8 @@ class AdvertiseFeatureTest extends TestCase
      */
     public function test_store_advertise()
     {
+        $this->actingAs($this->user);
+
         $this->post('/api/advertises', $this->advertise->toArray())->assertStatus(200);
 
         $this->assertDatabaseHas('advertises', ['title' => $this->advertise->title]);
@@ -76,6 +80,8 @@ class AdvertiseFeatureTest extends TestCase
      */
     public function test_show_advertise()
     {
+        $this->actingAs($this->user);
+
         $this->post('/api/advertises', $this->data->toArray());
 
         $expected = $this->data->title;
@@ -92,6 +98,8 @@ class AdvertiseFeatureTest extends TestCase
      */
     public function test_update_advertise()
     {
+        $this->actingAs($this->user);
+
         $advertise = $this->data;
 
         $expected = ['title' => 'title updated'];
@@ -110,6 +118,8 @@ class AdvertiseFeatureTest extends TestCase
      */
     public function test_delete_advertise()
     {
+        $this->actingAs($this->user);
+
         $this->post('/api/advertises', $this->data->toArray());
 
         $this->delete('/api/advertises/'.$this->data->id)->assertStatus(200);

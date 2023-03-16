@@ -45,6 +45,8 @@ class UserFeatureTest extends TestCase
      */
     public function test_index_user()
     {
+        $this->actingAs($this->user);
+
         $this->post('/api/users', $this->data->toArray());
 
         $this->get('/api/users')->assertStatus(200);
@@ -58,6 +60,8 @@ class UserFeatureTest extends TestCase
      */
     public function test_store_user()
     {
+        $this->actingAs($this->user);
+
         $this->post('/api/users', $this->data->toArray());
         
         $this->assertDatabaseHas('users', $this->data->toArray());
@@ -70,6 +74,8 @@ class UserFeatureTest extends TestCase
      */
     public function test_show_user()
     {
+        $this->actingAs($this->user);
+
         $this->post('/api/users', $this->data->toArray());
 
         $id = $this->data->id;
@@ -86,6 +92,8 @@ class UserFeatureTest extends TestCase
      */
     public function test_update_user()
     {
+        $this->actingAs($this->user);
+
         $user = $this->data;
 
         $updatedData = [
@@ -107,6 +115,8 @@ class UserFeatureTest extends TestCase
      */
     public function test_delete_user()
     {
+        $this->actingAs($this->user);
+
         $this->post('/api/users', $this->data->toArray());
 
         $this->delete('/api/users/'.$this->data->id)->assertStatus(200);

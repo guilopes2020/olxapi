@@ -22,27 +22,27 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'state_id' => 'required|integer',
             'name'     => 'required|string|max:255',
             'email'    => 'required|string|email|unique:users,email',
-            'password' => 'required|string',
-            'state_id' => 'required|integer',
+            'password' => 'required|min:6',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required'     => 'o campo name é obrigatorio',
+            'state_id.required' => 'o campo state_id e obrigatorio',
+            'state_id.integer'  => 'o campo state_id tem que ser do tipo integer',  
+            'name.required'     => 'o campo name e obrigatorio',
             'name.string'       => 'o campo name tem que ser do tipo string',
             'name.max'          => 'o campo name tem que ter no maximo 255 caracteres',
-            'email.required'    => 'o campo email é obrigatorio',
+            'email.required'    => 'o campo email e obrigatorio',
             'email.string'      => 'o campo email tem que ser do tipo string',
             'email.email'       => 'o campo email tem que ser do tipo email',
-            'email.unique'      => 'este email já esta em uso, escolha outro',
-            'password.required' => 'o campo password é obrigatorio',
-            'password.string'   => 'o campo password tem que ser do tipo string',
-            'state_id.required' => 'o campo state_id é obrigatorio',
-            'state_id.integer'  => 'o campo state_id tem que ser do tipo integer',
+            'email.unique'      => 'este email ja esta em uso, escolha outro',
+            'password.required' => 'o campo password e obrigatorio',
+            'password.min'      => 'o campo password tem que ter no minimo 6 caracteres',
         ];
     }
 }

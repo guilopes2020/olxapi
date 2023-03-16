@@ -22,23 +22,23 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'state_id' => 'integer',
             'name'     => 'string|max:255',
             'email'    => 'string|email|unique:users,email',
-            'password' => 'string',
-            'state_id' => 'integer',
+            'password' => 'min:6'
         ];
     }
 
     public function messages()
     {
         return [
-            'name.string'      => 'o campo name tem que ser do tipo string',
-            'name.max'         => 'o campo name tem que ter no maximo 255 caracteres',
-            'email.string'     => 'o campo email tem que ser do tipo string',
-            'email.email'      => 'o campo email tem que ser do tipo email',
-            'email.unique'     => 'este email ja esta em uso, escolha outro',
-            'password.string'  => 'o campo password tem que ser do tipo string',
-            'state_id.integer' => 'o campo state_id tem que ser do tipo integer',
+            'state_id.integer'  => 'o campo state_id tem que ser do tipo integer',  
+            'name.string'       => 'o campo name tem que ser do tipo string',
+            'name.max'          => 'o campo name tem que ter no maximo 255 caracteres',
+            'email.string'      => 'o campo email tem que ser do tipo string',
+            'email.email'       => 'o campo email tem que ser do tipo email',
+            'email.unique'      => 'este email ja esta em uso, escolha outro',
+            'password.min'      => 'o campo password tem que ter no minimo 6 caracteres',
         ];
     }
 }

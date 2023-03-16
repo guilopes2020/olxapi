@@ -43,7 +43,7 @@ abstract class AbstractService implements ServiceInterface
     {
         $result = $this->repository->find($id, $with, $withCount);
         if ($result == null) {
-            throw new \Exception('Objeto não encontrado na base de dados');
+            throw new \Exception('Objeto nao encontrado na base de dados');
         }
 
         return $result;
@@ -190,7 +190,7 @@ abstract class AbstractService implements ServiceInterface
     {
         $result = $this->repository->find($id);
         if ($result == null) {
-            throw new \Exception('Objeto não encontrado na base de dados');
+            throw new \Exception('Objeto nao encontrado na base de dados');
         }
     }
 

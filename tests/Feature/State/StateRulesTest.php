@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class StateFeatureTest extends TestCase
+class StateRulesTest extends TestCase
 {
     protected $data;
     protected $state;
@@ -26,7 +26,8 @@ class StateFeatureTest extends TestCase
 
         $this->user = User::factory()->create();
         $this->data = State::factory()->create();
-        $state = [
+
+        $states = [
             'Acre',
             'Alagoas',
             'Amapa',
@@ -55,98 +56,80 @@ class StateFeatureTest extends TestCase
             'Sergipe',
             'Tocantins',
         ];
+
         $this->state = State::factory()->make([
-            'name' => fake()->randomElement($state),
+            'name' => fake()->randomElement($states),
             'slug' => fake()->slug(),
         ]);
     }
 
     /**
-     * Index State
+     * Doesnt Let Create State With Empty Name Empty
      *
      * @return void
      */
-    public function test_index_state()
+    public function test_that_you_cant_let_create_state_with_name_field_empty()
     {
         $this->actingAs($this->user);
 
-        $this->post('/api/states', $this->state->toArray());
-
-        $this->get('/api/states')->assertStatus(200);
-
-        $this->get('/api/states')->assertSee($this->state->name);
-    }
-
-    /**
-     * Store State
-     *
-     * @return void
-     */
-    public function test_store_state()
-    {
-        $this->actingAs($this->user);
-
-        $this->post('/api/states', $this->state->toArray())->assertStatus(200);
-
-        $this->assertDatabaseHas('states', $this->state->toArray());
-    }
-
-    /**
-     * Show State
-     *
-     * @return void
-     */
-    public function test_show_state()
-    {
-        $this->actingAs($this->user);
-
-        $this->post('/api/states', $this->data->toArray());
-
-        $id = $this->data->id;
-
-        $expected = $this->data->name;
-
-        $this->get('/api/states/'.$id)->assertSee($expected);
-
-    }
-
-    /**
-     * Update State
-     *
-     * @return void
-     */
-    public function test_update_state()
-    {
-        $this->actingAs($this->user);
-
-        $state = $this->data;
-
-        $updateData = [
-            'name' => 'state updated',
-            'slug' => 'slug updated',
+        $state = [
+            'name' => '',
+            'slug' => $this->state->slug,
         ];
 
-        $this->put('/api/states/'.$state->id, $updateData)->assertStatus(200);
-
-        $state->refresh();
-
-        $this->get('/api/states/'.$state->id)->assertSee('state updated', 'slug updated');
+        $this->post('/api/states', $state)->assertStatus(422)->assertSee('o campo name e obrigatorio');
     }
 
     /**
-     * Delete State
+     * Can't Let Create State With The Name Field Without Being a String
      *
      * @return void
      */
-    public function test_delete_state()
+    public function test_that_you_cant_let_create_state_with_the_name_field_without_being_a_string()
     {
         $this->actingAs($this->user);
 
-        $this->post('/api/states', $this->data->toArray());
+        $this->actingAs($this->user);
 
-        $this->delete('/api/states/'.$this->data->id)->assertStatus(200);
+        $state = [
+            'name' => random_int(1, 100),
+            'slug' => $this->state->slug,
+        ];
 
-        $this->assertDatabaseMissing('states', $this->data->toArray());
+        $this->post('/api/states', $state)->assertStatus(422)->assertSee('o campo name tem que ser do tipo string');
     }
 
+    /**
+     * Not Can Create State With Empty Slug Field
+     *
+     * @return void
+     */
+    public function test_not_can_create_state_with_empty_slug_field()
+    {
+        $this->actingAs($this->user);
+
+        $state = [
+            'name' => $this->state->name,
+            'slug' => '',
+        ];
+
+        $this->post('/api/states', $state)->assertStatus(422)->assertSee('o campo slug e obrigatorio');
+    }
+
+    /**
+     * Cannot Create State With The Slug Field Without Being Of Type String
+     *
+     * @return void
+     */
+    public function test_that_cannot_create_state_with_slug_field_without_being_of_type_string()
+    {
+        $this->actingAs($this->user);
+
+        $state = [
+            'name' => $this->state->name,
+            'slug' => fake()->boolean(),
+        ];
+
+        $this->post('/api/states', $state)->assertStatus(422)->assertSee('o campo slug tem que ser do tipo string');
+    }
 }
