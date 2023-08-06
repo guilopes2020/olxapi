@@ -29,8 +29,8 @@ Route::controller(AuthController::class)->group(function() {
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::apiResources([
-        'users' => UserController::class,
-        'states' => StateController::class,
+        'users'      => UserController::class,
+        'states'     => StateController::class,
         'categories' => CategoryController::class,
         'advertises' => AdvertiseController::class,
     ]);
