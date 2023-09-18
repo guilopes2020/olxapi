@@ -9,6 +9,9 @@
     entre na pasta do projeto:
     cd olxapi
 
+    mude para branch de desenvolvimento:
+    git checkout develop
+
     crie um novo banco de dados: exemplo(olxapi)
     
     troque as variaveis de ambiente no arquivo .env para as suas informações locais:
