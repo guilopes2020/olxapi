@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('advertises', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('state_id')->constrained();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->default('123456');
-            $table->rememberToken();
-            
+            $table->foreignId('category_id')->constrained();
+            $table->string('title', 255);
+            $table->float('price');
+            $table->text('description', 255)->nullable();
+            $table->boolean('is_negotiable');
+            $table->integer('views');
+
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('advertises');
     }
 };
