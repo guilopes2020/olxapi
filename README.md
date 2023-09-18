@@ -3,14 +3,23 @@
     API feita com Laravel 9 usando a arquitetura DDD (domain driven design) e tambem com testes TDD (testes unitários e features)
 
 ### Instalação
-    abra o terminal e va ate a pasta onde ficam seus projetos;
-    faça o clone do projeto: git clone https://github.com/guilopes2020/olxapi.git
+    abra o terminal e va ate a pasta onde ficam seus projetos
+    faça o clone do projeto: 
+    
+### clonando o projeto
+    git clone https://github.com/guilopes2020/olxapi.git
 
+### configurando
     entre na pasta do projeto:
+
     cd olxapi
 
+
     mude para branch de desenvolvimento:
+
     git checkout develop
+
+
 
     crie um novo banco de dados: exemplo(olxapi)
     
@@ -23,9 +32,12 @@
     DB_PASSWORD=password
 
     gere um nova APP_KEY com o comando:
+
     php artisan key:generate
 
+
     Rode as migrates e seeders do projeto:
+
     php artisan migrate:fresh --seed
 
 ### Para rodar testes
